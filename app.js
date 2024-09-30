@@ -28,8 +28,8 @@ const helmet=require('helmet');
 // but helmet has a middleware regarding content security policy , which interrupts data(like maps,locations) coming from other sources like mapTiler
 // thats why disable the content security policy
 
-//const dbUrl=process.env.MONGODB_URL; // this is out cloud connection to mongo
-const dbUrl='mongodb://127.0.0.1:27017/yelp-camp';
+const dbUrl=process.env.MONGODB_URL || 'mongodb://127.0.0.1:27017/yelp-camp' ; // this is out cloud connection to mongo
+//const dbUrl='mongodb://127.0.0.1:27017/yelp-camp';
 
 const MongoStore = require('connect-mongo'); // to store the sessions data in mongo and not locally in memory store
 
@@ -58,11 +58,13 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname,'public'))) // making 'public' directory public
 app.use(mongoSanitize());
 
+const secret=process.env.SECRET || 'thisshouldbeabettersecret!';
+
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60, // in seconds // so that session data is not lost everytime we refresh and is stored in mongo for 24hrs
     crypto: {
-        secret: 'thisshouldbeabettersecret!'
+        secret: secret
     }
 });
 store.on("error",function(e){console.log("STORE ERROR!!",e);})
@@ -71,7 +73,7 @@ store.on("error",function(e){console.log("STORE ERROR!!",e);})
 const sessionConfig={
     store:store,
     name:'notthedefaultname', // we can change the name of the cookie from 'connect.sid' which is by default to any name , which helps in finding this cookie a bit more difficult
-    secret:'thisshouldbeagoodsecret!',
+    secret:secret,
     resave:false,
     saveUninitialized:true,
     cookie:{
