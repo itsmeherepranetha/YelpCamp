@@ -158,14 +158,6 @@ app.use((req,res,next)=>{
     next(); // important
 })
 
-app.get('/fakeuser',async(req,res)=>{
-    const user=new User({email:'pranethacoding@gmail.com',username:'pranetha'});// username is already there by default , and also we do not put password here
-    const newUser=await User.register(user,'pranetha123'); // the second argument is the password
-    res.send(newUser);
-    // so the User model has attributes [email,_id,username,salt,hash,__v], but we only put email , passport-local-mongoose put all the others
-    // also passport does not user bcrypt, it uses PBKDF2 hashing
-});
-
 //prefix routes
 app.use('/campgrounds',campgroundsRoutes);
 app.use('/campgrounds/:id/reviews',reviewsRoutes);
