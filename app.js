@@ -185,4 +185,6 @@ app.use((err,req,res,next)=>{
     res.status(statusCode).render('error',{err});
 });
 
-app.listen(3000,()=>{console.log("ON PORT 3000!!!")});
+
+const port=process.env.PORT || 3000;  // the varaible PORT is set by render itself , by default
+app.listen(3000,()=>{console.log(`ON PORT ${port}!!!`)});
