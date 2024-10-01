@@ -70,9 +70,11 @@ const store = MongoStore.create({
 store.on("error",function(e){console.log("STORE ERROR!!",e);})
 // now if u see in mongo , a new collection called 'sessions' is created
 
+const name=process.env.NAME || 'notthedefaultname';
+
 const sessionConfig={
     store:store,
-    name:'notthedefaultname', // we can change the name of the cookie from 'connect.sid' which is by default to any name , which helps in finding this cookie a bit more difficult
+    name:name, // we can change the name of the cookie from 'connect.sid' which is by default to any name , which helps in finding this cookie a bit more difficult
     secret:secret,
     resave:false,
     saveUninitialized:true,
