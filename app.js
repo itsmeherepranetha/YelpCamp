@@ -81,7 +81,7 @@ const sessionConfig={
     cookie:{
         httpOnly:true, // for some security purposes, for avoiding client-side modifications(XSS) and some cross-scripting of cookies, also its also default
         // httpOnly:true is useful to avoid accessing of cookies through javascript, only accessible through http
-        secure:true, // only done during https deployment and not locally
+        secure: process.env.NODE_ENV === 'production', // only done during https deployment and not locally
         // secure:true means that the cookies only work in 'https' and not 'http' , and this is done during deployment only , since localhost is not https , and things r going to break
         expires:Date.now()+(1000*60*60*24*7),  // the cookie expires in a week from now(Date.now() is in milliseconds)
         maxAge:1000*60*60*24*7  // a week
