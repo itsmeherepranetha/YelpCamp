@@ -51,7 +51,7 @@ const app=express();
 app.engine('ejs',ejsMate);
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'))
-app.set('trust proxy', 1);
+app.set('trust proxy', 1); // used for proxy servers used in hosting servives like render
 
 //middleware
 app.use(express.urlencoded({extended:true}));
