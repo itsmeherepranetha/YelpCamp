@@ -62,8 +62,3 @@ link : https://yelpcamp-mq0b.onrender.com
    node app.js
    ```
    It should be running on `http://localhost:3000`
-
-
-# Acknowledgements
-
-  Inspiration from Colt Steele's Web Development Bootcamp
